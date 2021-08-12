@@ -1,0 +1,29 @@
+/* Encabezado y elementos del mismo */
+header{
+    position: sticky;
+    top: 0;
+    background-color: $colorBase;
+    padding: $paddingHeader;
+    z-index: 2;
+}
+
+/* NAV, LISTA E ITEMS */
+.navegador{
+    display: inline-block;
+    width: 100%;
+    background-color: $colorBase !important;
+
+    &__lista{
+        justify-content: space-between;
+    }
+
+    &__logo{
+        width: $medidaIconoWhatsapp;
+        height: $medidaIconoWhatsapp;
+    }
+    
+    &__item{
+        font-size: $tamanioTituloNav;
+    }
+}
+/* FIN NAVS, LISTA E ITEMS */

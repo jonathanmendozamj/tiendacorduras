@@ -1,0 +1,70 @@
+$cantidadMaximaSecciones: 8;
+
+/* GRILLA Y SECCIÓN DE IMÁGENES */
+.grilla-imagenes{
+    padding: $paddingHeader/4;
+    display: grid;
+}
+
+.seccion-imagen{
+    background-color: $colorFondoPrincipal;
+    @include recuadros();
+
+    &__imagen{
+        @include recuadros();
+        padding: 0;
+        width: 100%;
+        height: auto;
+
+        &:hover{
+            transform: scale($escalaHover, $escalaHover);
+            opacity: 1;
+            transition: $transicionHover;
+        }
+    }
+
+    &__titulo{
+        color: $colorPrincipal;
+        margin: 0;
+        padding-top: $paddingInterno;
+        padding-bottom: $paddingInterno/3;
+        text-align: left;
+        font-weight: bolder;
+    }
+    
+    &__parrafo{
+        color: $colorBase;
+        margin: 0;
+    }
+
+    &__boton{
+        margin-top: $paddingHeader;
+        width: 100%;
+        @include secciones($colorPrincipal, $colorFondoBase); 
+
+        &:hover{
+            @include secciones($colorFondoBase, $colorPrincipal);
+        }
+    }
+}
+/* FIN GRILLA Y SECCIÓN DE IMÁGENES */
+
+/* DEFINICIÓN DE GRILLAS */
+@for $i from 1 through $cantidadMaximaSecciones {
+    #seccion#{$i}{
+        grid-area: seccion#{$i};
+    }
+}
+
+#video{
+    grid-area: video;
+}
+
+#articulo1{
+    grid-area: articulo1;
+}
+
+#articulo2{
+    grid-area: articulo2;
+}
+/* FIN DEFINICIÓN GRILLAS */

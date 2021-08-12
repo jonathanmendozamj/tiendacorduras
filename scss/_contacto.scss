@@ -1,0 +1,68 @@
+@mixin mixinContenedorItemFormulario(){
+    display: flex;
+    flex-direction: row;
+    margin-bottom: $paddingFormulario;
+}
+
+/* CONTENEDOR DEL ITEM DEL FORMULARIO */
+.contenedor-item-formulario{
+    @include mixinContenedorItemFormulario();
+    
+    &__etiqueta{
+        width: 40%;
+        font-size: $tamanioTituloFormulario;
+    }
+
+    &__input{
+        width: 60%;
+        
+    }
+
+    &__boton{
+        width: 100%;
+        @include secciones($colorPrincipal, $colorFondoBase); 
+
+        &:hover{
+            @include secciones($colorFondoBase, $colorPrincipal);
+        }
+    }
+    
+}
+
+.contenedor-item-formulario--checkbox{
+    @extend .contenedor-item-formulario;
+    justify-content: space-between;
+}
+
+/* ACCORDION */
+#articuloAccordion{
+    margin-top: $paddingSecciones;
+}
+
+.accordion-button:not(.collapsed){
+    @include secciones($colorPrincipal, $colorFondoBase); 
+    font-weight: bold;
+}
+
+.accordion-button:focus{
+    border-color: $colorFondoPrincipal;
+    box-shadow: 0 0 $paddingHeader/2 $colorPrincipal;
+}
+
+.accordion-body{
+    font-size: small;
+}
+/* FIN ACCORDION */
+
+#mapaUbicacion{
+    border: 0;
+    display: block; 
+    width: 100%;
+    height: 100%;
+    
+    @include dimensionContacto();
+}
+
+#subseccionDatosContacto{
+    @include dimensionContacto();
+}

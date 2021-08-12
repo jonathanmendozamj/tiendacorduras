@@ -1,0 +1,30 @@
+/* SECCION PRINCIPAL */
+.contenedor-principal{
+    padding: $paddingGeneral;
+    background-color: $colorFondoBase;
+}
+
+.articulo-seccion-principal{
+    min-height: $alturaArticuloSeccionPrincipal;
+}
+/* FIN PRINCIPAL */
+
+/* SECCIÓN ÍCONO FLOTANTE */
+.seccion-icono-flotante{
+    background-color: $colorWhatsapp; 
+    padding: $paddingHeader/2; 
+    border-radius: $medidaIconoWhatsapp; 
+    position: fixed;
+    z-index: 2;
+    right: $paddingIconoWhatsapp;
+    bottom: $paddingIconoWhatsapp;
+
+    &__imagen{
+        @include dimensiones($medidaIconoWhatsapp, $medidaIconoWhatsapp);
+    }
+}
+/* FIN SECCIÓN ÍCONO FLOTANTE*/
+
+#articuloImportante{
+    margin-top: $paddingSecciones;
+}

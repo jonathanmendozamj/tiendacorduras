@@ -1,0 +1,282 @@
+@import "colores";
+@import "variables";
+@import "tipografia";
+@import "mixins";
+@import "index";
+@import "articulo";
+@import "header";
+@import "piepagina";
+@import "contacto";
+@import "grilla";
+
+/* CSS Reset */
+*{
+    margin: 0;
+    padding: 0;
+}
+
+/* Cuerpo principal */
+body{
+    width: 100vw;
+    max-width: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+/* Estilo de los titulos */
+h1, h2, h3, h4, h5, h6 {
+    color: $colorPrincipal;
+    text-align: center;
+    font-weight: bold;
+}
+
+.icono{
+    @include dimensiones($tamanioIcono, $tamanioIcono);
+}
+
+/* INICIO MEDIA QUERIES */
+@media only screen and (max-width: 600px){
+
+    #seccionIndumentaria{
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-areas:    "seccion1"
+                                "seccion2"
+                                "seccion3"
+                                "seccion4"
+                                "seccion5"
+                                "seccion6";
+
+        @include seccionesGrilla();
+    }
+
+    #seccionCalzado{
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(8, 1fr);
+        grid-template-areas:    "seccion1"
+                                "seccion2"
+                                "seccion3"
+                                "seccion4"
+                                "seccion5"
+                                "seccion6"
+                                "seccion7"
+                                "seccion8";
+
+        @include seccionesGrilla();
+    }
+
+    #seccionSucursales{
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-areas:    "seccion1"
+                                "seccion2"
+                                "seccion3"
+                                "seccion4";
+
+        @include seccionesGrilla();
+    }
+
+    .contenedor-secciones-pie-pagina{
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        align-items: flex-start;
+    }
+
+    .subseccionContacto{
+        width: 100%;
+    }
+
+    #subseccionFormulario{
+        margin-bottom: $paddingSecciones;
+    }
+    
+    #subseccionDatosContacto{
+        margin-top: $paddingSecciones;
+    }
+
+    /* CONTENEDOR DEL FORMULARIO */
+    .contenedor-item-formulario{
+        flex-direction: column;
+
+        &__etiqueta{
+            width: 100%;
+            font-size: $tamanioTituloFormularioResponsive;
+        }
+    
+        &__input{
+            width: 100%;
+        }
+
+        &__boton{
+            margin-bottom: $paddingHeader/2;
+        }
+    }
+
+    .articulo-seccion-principal{
+        margin-top: $paddingHeader;
+        margin-bottom: $paddingHeader;
+    }
+    
+    .contenedor-item-formulario--checkbox{
+        @include mixinContenedorItemFormulario();
+        justify-content: space-between;
+    }
+    /* FIN CONTENEDOR */
+}
+
+@media only screen and (min-width: 600px){
+    #seccionIndumentaria{
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(6, 1fr);
+        grid-template-areas:    "seccion1"
+                                "seccion2"
+                                "seccion3"
+                                "seccion4"
+                                "seccion5"
+                                "seccion6";
+        @include seccionesGrilla();
+    }
+
+    #seccionCalzado{
+        grid-template-columns: 100%;
+        grid-template-rows: repeat(8, 1fr);
+        grid-template-areas:    "seccion1"
+                                "seccion2"
+                                "seccion3"
+                                "seccion4"
+                                "seccion5"
+                                "seccion6"
+                                "seccion7"
+                                "seccion8";
+
+        @include seccionesGrilla();
+    }
+
+    #seccionSucursales{
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:    "seccion1 seccion2"
+                                "seccion3 seccion4";
+
+        @include seccionesGrilla();
+    }
+
+    .subseccionContacto{
+        width: 100%;
+    }
+
+    #subseccionFormulario{
+        margin-bottom: $paddingSecciones;
+    }
+    
+    #subseccionDatosContacto{
+        margin-top: $paddingSecciones;
+    }
+
+    /* CONTENEDOR DEL FORMULARIO */
+    .contenedor-item-formulario{
+        margin: 0 0 $paddingFormulario 0;
+        flex-direction: column;
+    
+        &__etiqueta{
+            width: 100%;
+            font-size: $tamanioTituloFormularioResponsive;
+        }
+    
+        &__input{
+            width: 100%;
+        }
+
+        &__boton{
+            margin-bottom: $paddingHeader/2;
+        }
+    }
+
+    .contenedor-item-formulario--checkbox{
+        @include mixinContenedorItemFormulario();
+    }
+    /* FIN CONTENEDOR */
+
+    .articulo-seccion-principal{
+        margin-top: $paddingHeader;
+        margin-bottom: $paddingHeader;
+    }
+}
+
+@media only screen and (min-width: 992px){
+    #seccionIndumentaria{
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:    "seccion1 seccion2 seccion3"
+                                "seccion4 seccion5 seccion6";
+
+        @include seccionesGrilla();
+    }
+
+    #seccionCalzado{
+        grid-template-columns: 50% 50%;
+        grid-template-rows: repeat(4, 1fr);
+        grid-template-areas:    "seccion1 seccion2"
+                                "seccion3 seccion4"
+                                "seccion5 seccion6"
+                                "seccion7 seccion8";
+        
+        @include seccionesGrilla();                        
+    }
+
+    #seccionSucursales{
+        grid-template-columns: 50% 50%;
+        grid-template-rows: repeat(2, 1fr);
+        grid-template-areas:    "seccion1 seccion2"
+                                "seccion3 seccion4";
+
+        @include seccionesGrilla();
+    }
+
+    #seccionContacto{
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: stretch;
+    }
+
+    .articulo-seccion-principal{
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .subseccionContacto{
+        width: 50%;
+    }
+
+    #subseccionFormulario{
+        margin-right: $paddingSecciones/2;
+        margin-bottom: 0;
+    }
+    
+    #subseccionDatosContacto{
+        margin-left: $paddingSecciones/2;
+        margin-top: 0;
+    }
+
+    .contenedor-item-formulario{
+        @include mixinContenedorItemFormulario();
+        flex-direction: row;
+    
+        &__etiqueta{
+            width: 40%;
+            font-size: $tamanioParrafoArticulo;
+        }
+    
+        &__input{
+            width: 60%;
+            margin-left: $paddingHeader/2;
+        }
+
+        &__boton{
+            margin-left: $paddingHeader/2;
+        }
+    }
+}
+/* FIN MEDIA QUERIES */

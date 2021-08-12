@@ -1,0 +1,34 @@
+/* ARTÍCULOS */
+.articulo{
+    @include recuadros();
+
+    &__titulo{
+        color: $colorBase;
+        font-weight: bold;
+    }
+
+    &__parrafo{
+        color: $colorBase;
+        font-size: $tamanioParrafoArticulo;
+    }
+
+    &__parrafo--acotacion{
+        color: $colorBase;
+        font-size: small;
+    }
+}
+
+.articulo--principal{
+    @extend .articulo;
+    @include secciones($colorFondoPrincipal, $colorBase);
+
+    &__titulo{
+        color: $colorPrincipal;
+    }
+}
+
+.articulo--secundario{
+    @extend .articulo;
+    @include secciones($colorFondoSecundario, $colorBase);
+}
+/* FIN ARTÍCULOS */

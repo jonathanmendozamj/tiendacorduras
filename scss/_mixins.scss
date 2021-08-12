@@ -1,0 +1,31 @@
+/* MIXINS */
+@mixin secciones($colorFondo, $colorTexto){
+    background-color: $colorFondo;
+    color: $colorTexto;
+}
+
+@mixin seccionesGrilla(){
+    display: grid;
+    row-gap: $paddingSecciones;
+    column-gap: $paddingSecciones;
+    height: 100%;
+}
+
+@mixin recuadros(){
+    border-radius: $radioEsquinas;
+    padding: $paddingInterno;
+}
+
+@mixin dimensiones($ancho, $alto){
+    height: $alto;
+    width: $ancho;
+}
+
+@mixin dimensionContacto(){
+    min-height: $medidaMinimaMapa;
+}
+
+@mixin articuloSeccionPrincipal{
+    
+}
+/* FIN MIXINS*/

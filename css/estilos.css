@@ -1,0 +1,420 @@
+@charset "UTF-8";
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,600;0,700;0,800;1,300;1,400;1,600;1,700;1,800&display=swap");
+/* MIXINS */
+/* FIN MIXINS*/
+/* SECCION PRINCIPAL */
+.contenedor-principal {
+  padding: 1.56rem;
+  background-color: white; }
+
+.articulo-seccion-principal {
+  min-height: 16rem; }
+
+/* FIN PRINCIPAL */
+/* SECCIÓN ÍCONO FLOTANTE */
+.seccion-icono-flotante {
+  background-color: #25d366;
+  padding: 0.25rem;
+  border-radius: 3.5rem;
+  position: fixed;
+  z-index: 2;
+  right: 1.875rem;
+  bottom: 1.875rem; }
+  .seccion-icono-flotante__imagen {
+    height: 3.5rem;
+    width: 3.5rem; }
+
+/* FIN SECCIÓN ÍCONO FLOTANTE*/
+#articuloImportante {
+  margin-top: 0.9rem; }
+
+/* ARTÍCULOS */
+.articulo, .articulo--principal, .articulo--secundario {
+  border-radius: 2rem;
+  padding: 1.1rem; }
+  .articulo__titulo {
+    color: black;
+    font-weight: bold; }
+  .articulo__parrafo {
+    color: black;
+    font-size: 1rem; }
+  .articulo__parrafo--acotacion {
+    color: black;
+    font-size: small; }
+
+.articulo--principal {
+  background-color: #FFE5E5;
+  color: black; }
+  .articulo--principal__titulo {
+    color: #AE3335; }
+
+.articulo--secundario {
+  background-color: #F5F6F6;
+  color: black; }
+
+/* FIN ARTÍCULOS */
+/* Encabezado y elementos del mismo */
+header {
+  position: sticky;
+  top: 0;
+  background-color: black;
+  padding: 0.5rem;
+  z-index: 2; }
+
+/* NAV, LISTA E ITEMS */
+.navegador {
+  display: inline-block;
+  width: 100%;
+  background-color: black !important; }
+  .navegador__lista {
+    justify-content: space-between; }
+  .navegador__logo {
+    width: 3.5rem;
+    height: 3.5rem; }
+  .navegador__item {
+    font-size: 1.125rem; }
+
+/* FIN NAVS, LISTA E ITEMS */
+/* Pie de página y elementos del mismo */
+footer {
+  background-color: black;
+  padding: 1.56rem;
+  position: relative;
+  bottom: 0;
+  left: 0;
+  height: 10%; }
+
+.contenedor-secciones-pie-pagina {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: start; }
+
+.seccion-pie-pagina {
+  margin: 0.5rem 0 0.5rem 0; }
+  .seccion-pie-pagina__titulo {
+    color: white;
+    text-align: left;
+    font-size: 0.9rem;
+    font-weight: bold; }
+  .seccion-pie-pagina__parrafo {
+    color: white;
+    font-size: 0.875rem;
+    margin-bottom: 0; }
+  .seccion-pie-pagina__parrafo--centrado {
+    color: white;
+    font-size: 0.875rem;
+    text-align: center; }
+  .seccion-pie-pagina__iconos {
+    height: 2rem;
+    width: 2rem; }
+
+/* FIN PIE PAGINA */
+/* CONTENEDOR DEL ITEM DEL FORMULARIO */
+.contenedor-item-formulario, .contenedor-item-formulario--checkbox {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0.625rem; }
+  .contenedor-item-formulario__etiqueta {
+    width: 40%;
+    font-size: 1rem; }
+  .contenedor-item-formulario__input {
+    width: 60%; }
+  .contenedor-item-formulario__boton {
+    width: 100%;
+    background-color: #AE3335;
+    color: white; }
+    .contenedor-item-formulario__boton:hover {
+      background-color: white;
+      color: #AE3335; }
+
+.contenedor-item-formulario--checkbox {
+  justify-content: space-between; }
+
+/* ACCORDION */
+#articuloAccordion {
+  margin-top: 0.9rem; }
+
+.accordion-button:not(.collapsed) {
+  background-color: #AE3335;
+  color: white;
+  font-weight: bold; }
+
+.accordion-button:focus {
+  border-color: #FFE5E5;
+  box-shadow: 0 0 0.25rem #AE3335; }
+
+.accordion-body {
+  font-size: small; }
+
+/* FIN ACCORDION */
+#mapaUbicacion {
+  border: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 28rem; }
+
+#subseccionDatosContacto {
+  min-height: 28rem; }
+
+/* GRILLA Y SECCIÓN DE IMÁGENES */
+.grilla-imagenes {
+  padding: 0.125rem;
+  display: grid; }
+
+.seccion-imagen {
+  background-color: #FFE5E5;
+  border-radius: 2rem;
+  padding: 1.1rem; }
+  .seccion-imagen__imagen {
+    border-radius: 2rem;
+    padding: 1.1rem;
+    padding: 0;
+    width: 100%;
+    height: auto; }
+    .seccion-imagen__imagen:hover {
+      transform: scale(1.04, 1.04);
+      opacity: 1;
+      transition: 1.2s; }
+  .seccion-imagen__titulo {
+    color: #AE3335;
+    margin: 0;
+    padding-top: 1.1rem;
+    padding-bottom: 0.36667rem;
+    text-align: left;
+    font-weight: bolder; }
+  .seccion-imagen__parrafo {
+    color: black;
+    margin: 0; }
+  .seccion-imagen__boton {
+    margin-top: 0.5rem;
+    width: 100%;
+    background-color: #AE3335;
+    color: white; }
+    .seccion-imagen__boton:hover {
+      background-color: white;
+      color: #AE3335; }
+
+/* FIN GRILLA Y SECCIÓN DE IMÁGENES */
+/* DEFINICIÓN DE GRILLAS */
+#seccion1 {
+  grid-area: seccion1; }
+
+#seccion2 {
+  grid-area: seccion2; }
+
+#seccion3 {
+  grid-area: seccion3; }
+
+#seccion4 {
+  grid-area: seccion4; }
+
+#seccion5 {
+  grid-area: seccion5; }
+
+#seccion6 {
+  grid-area: seccion6; }
+
+#seccion7 {
+  grid-area: seccion7; }
+
+#seccion8 {
+  grid-area: seccion8; }
+
+#video {
+  grid-area: video; }
+
+#articulo1 {
+  grid-area: articulo1; }
+
+#articulo2 {
+  grid-area: articulo2; }
+
+/* FIN DEFINICIÓN GRILLAS */
+/* CSS Reset */
+* {
+  margin: 0;
+  padding: 0; }
+
+/* Cuerpo principal */
+body {
+  width: 100vw;
+  max-width: 100%;
+  font-family: 'Open Sans', sans-serif; }
+
+/* Estilo de los titulos */
+h1, h2, h3, h4, h5, h6 {
+  color: #AE3335;
+  text-align: center;
+  font-weight: bold; }
+
+.icono {
+  height: 0.875rem;
+  width: 0.875rem; }
+
+/* INICIO MEDIA QUERIES */
+@media only screen and (max-width: 600px) {
+  #seccionIndumentaria {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-areas: "seccion1" "seccion2" "seccion3" "seccion4" "seccion5" "seccion6";
+    display: grid;
+    row-gap: 0.9rem;
+    column-gap: 0.9rem;
+    height: 100%; }
+  #seccionCalzado {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-areas: "seccion1" "seccion2" "seccion3" "seccion4" "seccion5" "seccion6" "seccion7" "seccion8";
+    display: grid;
+    row-gap: 0.9rem;
+    column-gap: 0.9rem;
+    height: 100%; }
+  #seccionSucursales {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: "seccion1" "seccion2" "seccion3" "seccion4";
+    display: grid;
+    row-gap: 0.9rem;
+    column-gap: 0.9rem;
+    height: 100%; }
+  .contenedor-secciones-pie-pagina {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    align-items: flex-start; }
+  .subseccionContacto {
+    width: 100%; }
+  #subseccionFormulario {
+    margin-bottom: 0.9rem; }
+  #subseccionDatosContacto {
+    margin-top: 0.9rem; }
+  /* CONTENEDOR DEL FORMULARIO */
+  .contenedor-item-formulario, .contenedor-item-formulario--checkbox {
+    flex-direction: column; }
+    .contenedor-item-formulario__etiqueta {
+      width: 100%;
+      font-size: 0.85rem; }
+    .contenedor-item-formulario__input {
+      width: 100%; }
+    .contenedor-item-formulario__boton {
+      margin-bottom: 0.25rem; }
+  .articulo-seccion-principal {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem; }
+  .contenedor-item-formulario--checkbox {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.625rem;
+    justify-content: space-between; }
+  /* FIN CONTENEDOR */ }
+
+@media only screen and (min-width: 600px) {
+  #seccionIndumentaria {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(6, 1fr);
+    grid-template-areas: "seccion1" "seccion2" "seccion3" "seccion4" "seccion5" "seccion6";
+    display: grid;
+    row-gap: 0.9rem;
+    column-gap: 0.9rem;
+    height: 100%; }
+  #seccionCalzado {
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(8, 1fr);
+    grid-template-areas: "seccion1" "seccion2" "seccion3" "seccion4" "seccion5" "seccion6" "seccion7" "seccion8";
+    display: grid;
+    row-gap: 0.9rem;
+    column-gap: 0.9rem;
+    height: 100%; }
+  #seccionSucursales {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: "seccion1 seccion2" "seccion3 seccion4";
+    display: grid;
+    row-gap: 0.9rem;
+    column-gap: 0.9rem;
+    height: 100%; }
+  .subseccionContacto {
+    width: 100%; }
+  #subseccionFormulario {
+    margin-bottom: 0.9rem; }
+  #subseccionDatosContacto {
+    margin-top: 0.9rem; }
+  /* CONTENEDOR DEL FORMULARIO */
+  .contenedor-item-formulario, .contenedor-item-formulario--checkbox {
+    margin: 0 0 0.625rem 0;
+    flex-direction: column; }
+    .contenedor-item-formulario__etiqueta {
+      width: 100%;
+      font-size: 0.85rem; }
+    .contenedor-item-formulario__input {
+      width: 100%; }
+    .contenedor-item-formulario__boton {
+      margin-bottom: 0.25rem; }
+  .contenedor-item-formulario--checkbox {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.625rem; }
+  /* FIN CONTENEDOR */
+  .articulo-seccion-principal {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem; } }
+
+@media only screen and (min-width: 992px) {
+  #seccionIndumentaria {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: "seccion1 seccion2 seccion3" "seccion4 seccion5 seccion6";
+    display: grid;
+    row-gap: 0.9rem;
+    column-gap: 0.9rem;
+    height: 100%; }
+  #seccionCalzado {
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(4, 1fr);
+    grid-template-areas: "seccion1 seccion2" "seccion3 seccion4" "seccion5 seccion6" "seccion7 seccion8";
+    display: grid;
+    row-gap: 0.9rem;
+    column-gap: 0.9rem;
+    height: 100%; }
+  #seccionSucursales {
+    grid-template-columns: 50% 50%;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-areas: "seccion1 seccion2" "seccion3 seccion4";
+    display: grid;
+    row-gap: 0.9rem;
+    column-gap: 0.9rem;
+    height: 100%; }
+  #seccionContacto {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: stretch; }
+  .articulo-seccion-principal {
+    margin-top: 0;
+    margin-bottom: 0; }
+  .subseccionContacto {
+    width: 50%; }
+  #subseccionFormulario {
+    margin-right: 0.45rem;
+    margin-bottom: 0; }
+  #subseccionDatosContacto {
+    margin-left: 0.45rem;
+    margin-top: 0; }
+  .contenedor-item-formulario, .contenedor-item-formulario--checkbox {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 0.625rem;
+    flex-direction: row; }
+    .contenedor-item-formulario__etiqueta {
+      width: 40%;
+      font-size: 1rem; }
+    .contenedor-item-formulario__input {
+      width: 60%;
+      margin-left: 0.25rem; }
+    .contenedor-item-formulario__boton {
+      margin-left: 0.25rem; } }
+
+/* FIN MEDIA QUERIES */

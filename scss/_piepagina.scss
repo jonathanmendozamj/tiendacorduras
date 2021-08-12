@@ -1,0 +1,44 @@
+/* Pie de página y elementos del mismo */
+footer{
+    background-color: $colorBase;
+    padding: $paddingGeneral;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    height: 10%;
+}
+
+.contenedor-secciones-pie-pagina{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.seccion-pie-pagina{
+    margin: $paddingHeader 0 $paddingHeader 0;
+
+    &__titulo{
+        color: $colorFondoBase;
+        text-align: left;
+        font-size: $tamanioParrafoPiePagina;
+        font-weight: bold;
+    }
+    
+    &__parrafo{
+        color: $colorFondoBase;
+        font-size: $tamanioParrafo;
+        margin-bottom: 0;
+    }
+    
+    &__parrafo--centrado{
+        color: $colorFondoBase;
+        font-size: $tamanioParrafo;
+        text-align: center;
+    }
+    
+    &__iconos{
+        @include dimensiones($medidaIconoRedesSociales, $medidaIconoRedesSociales);
+    }
+}
+/* FIN PIE PAGINA */

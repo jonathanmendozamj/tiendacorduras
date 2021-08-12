@@ -184,21 +184,25 @@ function mainOrdenarPorCriterio(){
     while(opcion != 0){
         switch(opcion){
             case 1:
+                alert("Se muestra en el console el resultado de la operación.");
                 console.log("Array original", arrayProductos);
                 console.log("Array ordenado de menor a mayor precio", ordenarArrayPorCriterio(arrayProductos, criterioOrdenarMenorMayorPrecio));
             break;
     
             case 2:
+                alert("Se muestra en el console el resultado de la operación.");
                 console.log("Array original", arrayProductos);
                 console.log("Array ordenado de mayor a menor precio", ordenarArrayPorCriterio(arrayProductos, criterioOrdenarMayorMenorPrecio));
             break;
     
             case 3: 
+                alert("Se muestra en el console el resultado de la operación.");
                 console.log("Array original", arrayProductos);
                 console.log("Array ordenado alfabéticamente por nombre de forma ascendente (A-Z) ", ordenarArrayPorCriterio(arrayProductos, criterioOrdenarAscendenteNombre));
             break;
     
             case 4:
+                alert("Se muestra en el console el resultado de la operación.");
                 console.log("Array original", arrayProductos);
                 console.log("Array ordenado alfabéticamente por nombre de forma descendente (Z-A)", ordenarArrayPorCriterio(arrayProductos, criterioOrdenarDescendenteNombre));
             break;

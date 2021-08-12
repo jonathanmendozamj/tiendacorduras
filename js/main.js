@@ -110,6 +110,13 @@ function main(){
                 mainOrdenarPorCriterio();
             break;
 
+            case 9:
+                alert("Felicitaciones! Compró los siguientes elementos.");
+                carritoActual.mostrarCarrito();
+
+                carritoActual.vaciarCarrito();
+            break;
+
             default:
                 alert("Opción inválida.");
             break; 
@@ -251,6 +258,7 @@ function mostrarMenu(){
     mensaje = mensaje + "6) Mostrar carrito actual\n";
     mensaje = mensaje + "7) Vaciar carrito\n";
     mensaje = mensaje + "8) Mostrar productos disponibles según orden\n";
+    mensaje = mensaje + "9) Comprar\n";
     mensaje = mensaje + "0) Salir del programa\n";
     mensaje = mensaje + "\n";
     mensaje = mensaje + "Ingrese una opción";

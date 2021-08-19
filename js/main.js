@@ -1,9 +1,10 @@
 /* CLASES */
 class Producto{
-    constructor(pIdProducto, pNombre, pPrecio){
+    constructor(pIdProducto, pNombre, pPrecio, pFoto){
         this.idProducto = pIdProducto;
         this.nombre = pNombre;
         this.precio = pPrecio;
+        this.foto = pFoto;
     }
 
     mostrarPrecio = function(){
@@ -47,18 +48,46 @@ class Carrito{
         let total = 0;
 
         if(this.arrayProductos.length > 0){
+            let contenedorPrincipal = document.getElementById("productsContainer");
+            console.log(contenedorPrincipal.innerHTML);
+
+            let mensajeCarritoVacio = document.getElementById("mensajeCarritoVacio");
+            mensajeCarritoVacio.parentElement.removeChild(mensajeCarritoVacio);
+
             for(let producto of this.arrayProductos){
-                mensajeMostrar = mensajeMostrar + producto.mostrarDetalle() + "\n";
-                total = total + producto.precio;
+                /* INICIO DEL CONTENEDOR */
+                let contenedor = document.createElement("div");
+                contenedor.classList.add("col-md-4");
+
+                /* INICIO DE LA CARD */
+                let seccion = document.createElement("section");
+                seccion.classList.add("card");
+                seccion.innerHTML = `<img src="${ producto.foto }" class="card-img-top img-fluid" alt="${ producto.nombre }">
+                                    <div class="card-body">
+                                        <h5 class="card-title" style="text-align: left;"> ${ producto.nombre }</h5>
+                                        <p  class="card-text"> $ ${ producto.precio }</p>
+                                        <a href="#"><button class="btn btn-danger">Mostrar detalle</button></a>
+                                    </div>`;
+
+                contenedor.appendChild(seccion);
+                /* FIN DE LA CARD */
+
+                contenedorPrincipal.appendChild(contenedor);
+                /* FIN DEL CONTENEDOR */
             }
 
-            mensajeMostrar = mensajeMostrar + "TOTAL: $ " + total;
+            let mensajeTotal = document.createElement("div");
+            mensajeTotal.innerHTML = `<section class="card">
+                                        <div class="card-body">
+                                            <h5 class="card-title">TOTAL: $ ${ this.obtenerTotal() }</h5>
+                                        </div>
+                                    </section>`;
+
+            contenedorPrincipal.appendChild(mensajeTotal);
         }
         else{
             mensajeMostrar = "Carrito vacío.";
         }
-
-        alert(mensajeMostrar);
     }
 
     vaciarCarrito(){
@@ -68,12 +97,13 @@ class Carrito{
 }
 /* FIN CLASES */
 
+
 //creo los productos
-let prod1 = new Producto(1, "Zapatilla Nine Mile", 2500);
-let prod2 = new Producto(2, "Zapatilla Nike", 3500);
-let prod3 = new Producto(3, "Zapatilla I-Run", 4000);
-let prod4 = new Producto(4, "Zapatilla All Crash", 2250);
-let prod5 = new Producto(5, "Buzo", 2500);
+let prod1 = new Producto(1, "Zapatilla Nine Mile", 2500, "images/nine-mile.webp");
+let prod2 = new Producto(2, "Zapatilla Nike", 3500, "images/nike.webp");
+let prod3 = new Producto(3, "Zapatilla I-Run", 4000, "images/buss.webp");
+let prod4 = new Producto(4, "Zapatilla All Crash", 2250, "images/all-crash.webp");
+let prod5 = new Producto(5, "Buzo", 2500, "images/buzos.webp");
 
 //cargo el array de productos
 var arrayProductos = [prod1, prod2, prod3, prod4, prod5];
@@ -99,6 +129,7 @@ function main(){
 
             case 6:
                 carritoActual.mostrarCarrito();
+                return;
             break;
 
             case 7:

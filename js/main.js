@@ -14,6 +14,19 @@ class Producto{
     mostrarDetalle = function() { 
         return this.nombre + " ($ " + this.precio + ")";
     }
+
+    armarCard = function() {
+        let seccion = document.createElement("section");
+        seccion.classList.add("card");
+        seccion.innerHTML = `<img src="${ this.foto }" class="card-img-top img-fluid" alt="${ this.nombre }">
+                            <div class="card-body">
+                                <h5 class="card-title" style="text-align: left;"> ${ this.nombre }</h5>
+                                <p  class="card-text"> $ ${ this.precio }</p>
+                                <button class="btn btn-danger card-add" id="${ this.idProducto }">Agregar al carrito</button>
+                            </div>`;
+
+        return seccion;        
+    }
 }
 
 class Carrito{
@@ -44,58 +57,135 @@ class Carrito{
     }
 
     mostrarCarrito(){
-        let mensajeMostrar = '';
-        let total = 0;
+        let divProductosCarrito = document.getElementById("divCardProductosCarrito");
 
         if(this.arrayProductos.length > 0){
-            let contenedorPrincipal = document.getElementById("productsContainer");
-            console.log(contenedorPrincipal.innerHTML);
+            divProductosCarrito.style.display = 'block';
 
-            let mensajeCarritoVacio = document.getElementById("mensajeCarritoVacio");
-            mensajeCarritoVacio.parentElement.removeChild(mensajeCarritoVacio);
+            let listaProductos = document.getElementById("listaProductos");
 
-            for(let producto of this.arrayProductos){
-                /* INICIO DEL CONTENEDOR */
-                let contenedor = document.createElement("div");
-                contenedor.classList.add("col-md-4");
+            let itemProducto = document.createElement("li");
+            itemProducto.classList.add("list-group-item");
 
-                /* INICIO DE LA CARD */
-                let seccion = document.createElement("section");
-                seccion.classList.add("card");
-                seccion.innerHTML = `<img src="${ producto.foto }" class="card-img-top img-fluid" alt="${ producto.nombre }">
-                                    <div class="card-body">
-                                        <h5 class="card-title" style="text-align: left;"> ${ producto.nombre }</h5>
-                                        <p  class="card-text"> $ ${ producto.precio }</p>
-                                        <a href="#"><button class="btn btn-danger">Mostrar detalle</button></a>
-                                    </div>`;
+            let producto = this.arrayProductos[this.arrayProductos.length - 1];
+            itemProducto.innerHTML = producto.mostrarDetalle();
 
-                contenedor.appendChild(seccion);
-                /* FIN DE LA CARD */
-
-                contenedorPrincipal.appendChild(contenedor);
-                /* FIN DEL CONTENEDOR */
-            }
-
-            let mensajeTotal = document.createElement("div");
-            mensajeTotal.innerHTML = `<section class="card">
-                                        <div class="card-body">
-                                            <h5 class="card-title">TOTAL: $ ${ this.obtenerTotal() }</h5>
-                                        </div>
-                                    </section>`;
-
-            contenedorPrincipal.appendChild(mensajeTotal);
+            listaProductos.appendChild(itemProducto);
+            
         }
         else{
-            mensajeMostrar = "Carrito vacío.";
+            divProductosCarrito.style.display = 'none';
         }
     }
 
     vaciarCarrito(){
         this.arrayProductos = [];
+
+        let listaProductos = document.getElementById("listaProductos");
+        listaProductos.innerHTML = '';
+    }
+
+    mostrarTotal(){
+        let divCardTotal = document.getElementById("divTotal");
+        divCardTotal.innerHTML = `$ ${ this.obtenerTotal()}`;
+    }
+
+    obtenerCantidadArticulos(){
+        return this.arrayProductos.length;
+    }
+
+    mostrarCantidadArticulos(){
+        let cantidadArticulos = this.obtenerCantidadArticulos();
+        let spanCantidadArticulos = document.getElementById("spanCantidadArticulos");
+
+        if(cantidadArticulos > 0){
+            spanCantidadArticulos.style.display = 'block';
+            spanCantidadArticulos.innerHTML = cantidadArticulos;
+        }
+        else{
+            spanCantidadArticulos.style.display = 'none';
+        }
     }
     
 }
 /* FIN CLASES */
+
+function cargarAlLocalStorage(pArrayProductos){
+    const arrayProductosEnJSON = JSON.stringify(pArrayProductos);
+
+    let arrayGuardado = JSON.parse(localStorage.getItem("listaProductos"));
+
+    if(!Array.isArray(arrayGuardado)){
+        console.log("Se guarda array al LocalStorage");
+        localStorage.setItem("listaProductos", arrayProductosEnJSON);
+    }
+    else{
+        console.log("Se levanta array del LocalStorage");
+        pArrayProductos = JSON.parse(localStorage.getItem("listaProductos"));
+    }
+
+}
+
+function mostrarProductosDisponibles(pArrayProductos){
+    if(pArrayProductos.length > 0){
+        let contenedorPrincipal = document.getElementById("productsContainer");
+        console.log(contenedorPrincipal.innerHTML);
+
+        for(let producto of pArrayProductos){
+            /* INICIO DEL CONTENEDOR */
+            let contenedor = document.createElement("div");
+            contenedor.classList.add("col-md-4");
+
+            /* INICIO DE LA CARD */
+            contenedor.appendChild(producto.armarCard());
+            /* FIN DE LA CARD */
+
+            contenedorPrincipal.appendChild(contenedor);
+            /* FIN DEL CONTENEDOR */
+        }
+    }
+    else{
+        mensajeMostrar = "Carrito vacío.";
+    }
+}
+
+function agregarProductoAlCarrito(e){
+    console.log(e.target);
+
+    const productoEncontrado = arrayProductos.find(producto => {
+        return producto.idProducto == e.target.id;
+    });
+
+    let mensaje = '';
+
+    if(productoEncontrado !== undefined){
+        carritoActual.agregarProducto(productoEncontrado);
+        mensaje = "Se agregó " + productoEncontrado.nombre + " al carrito."
+
+        carritoActual.mostrarTotal();
+        carritoActual.mostrarCantidadArticulos();
+        carritoActual.mostrarCarrito();
+    }
+    else{
+        mensaje = "Hubo un problema al agregar el producto al carrito.";
+    }
+
+    console.log(mensaje);
+    mostrarMensaje(mensaje);
+}
+
+function mostrarMensaje(mensaje){
+    let modal = document.getElementById("divMensajeModal");
+    modal.style.display = "inline";
+
+    let mensajeModal = document.getElementById("parrafoMensajeModal");
+    mensajeModal.innerHTML = mensaje;
+}
+
+function cerrarModal(){
+    let modal = document.getElementById("divMensajeModal");
+    modal.style.display = "none";
+}
 
 
 //creo los productos
@@ -111,197 +201,29 @@ console.log(arrayProductos);
 
 var carritoActual = new Carrito();
 
-//función menu principal
-function main(){
-    let opcion = mostrarMenu();
-
-    while(opcion != 0){
-        switch(opcion){
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-                carritoActual.agregarProducto(arrayProductos[opcion - 1]);  
-                arrayProductos[opcion - 1].mostrarPrecio();
-                alert("Felicitaciones! Sumaste " + arrayProductos[opcion - 1].nombre);  
-            break;
-
-            case 6:
-                carritoActual.mostrarCarrito();
-                return;
-            break;
-
-            case 7:
-                carritoActual.vaciarCarrito();
-                alert("El carrito fue vaciado.");
-            break;
-
-            case 8:
-                mainOrdenarPorCriterio();
-            break;
-
-            case 9:
-                alert("Felicitaciones! Compró los siguientes elementos.");
-                carritoActual.mostrarCarrito();
-
-                carritoActual.vaciarCarrito();
-            break;
-
-            default:
-                alert("Opción inválida.");
-            break; 
-        }
-
-        opcion = mostrarMenu();
-        console.log(carritoActual);
-    }
-
-    alert("Saliste del programa.");
-}
-
-//funcion que ordena array por criterio pasado por parámetro
-function ordenarArrayPorCriterio(pArrayProductos, criterio){
-    let nuevoArray = pArrayProductos.slice();
-
-    return nuevoArray.sort(criterio);
-}
-
-//funcion donde se encuentra el switch y las funciones de ordenamiento
-function mainOrdenarPorCriterio(){
-    const criterioOrdenarMenorMayorPrecio = (itemA, itemB) => {
-        if(itemA.precio > itemB.precio){
-            return 1;
-        }
-
-        if(itemA.precio < itemB.precio){
-            return -1;
-        }
-
-        return 0;
-    };
-
-    const criterioOrdenarMayorMenorPrecio = (itemA, itemB) => {
-        if(itemA.precio < itemB.precio){
-            return 1;
-        }
-
-        if(itemA.precio > itemB.precio){
-            return -1;
-        }
-
-        return 0;
-    };
-
-    const criterioOrdenarAscendenteNombre = (itemA, itemB) => {
-        if(itemA.nombre > itemB.nombre){
-            return 1;
-        }
-
-        if(itemA.nombre < itemB.nombre){
-            return -1;
-        }
-
-        return 0;
-    };
-
-    const criterioOrdenarDescendenteNombre = (itemA, itemB) => {
-        if(itemA.nombre < itemB.nombre){
-            return 1;
-        }
-
-        if(itemA.nombre > itemB.nombre){
-            return -1;
-        }
-
-        return 0;
-    };
-
-    let opcion = mostrarMenuOpcionesOrdenamiento();
-
-    while(opcion != 0){
-        switch(opcion){
-            case 1:
-                alert("Se muestra en el console el resultado de la operación.");
-                console.log("Array original", arrayProductos);
-                console.log("Array ordenado de menor a mayor precio", ordenarArrayPorCriterio(arrayProductos, criterioOrdenarMenorMayorPrecio));
-            break;
-    
-            case 2:
-                alert("Se muestra en el console el resultado de la operación.");
-                console.log("Array original", arrayProductos);
-                console.log("Array ordenado de mayor a menor precio", ordenarArrayPorCriterio(arrayProductos, criterioOrdenarMayorMenorPrecio));
-            break;
-    
-            case 3: 
-                alert("Se muestra en el console el resultado de la operación.");
-                console.log("Array original", arrayProductos);
-                console.log("Array ordenado alfabéticamente por nombre de forma ascendente (A-Z) ", ordenarArrayPorCriterio(arrayProductos, criterioOrdenarAscendenteNombre));
-            break;
-    
-            case 4:
-                alert("Se muestra en el console el resultado de la operación.");
-                console.log("Array original", arrayProductos);
-                console.log("Array ordenado alfabéticamente por nombre de forma descendente (Z-A)", ordenarArrayPorCriterio(arrayProductos, criterioOrdenarDescendenteNombre));
-            break;
-
-            default:
-                alert("Opción inválida.");
-            break; 
-        }
-
-        opcion = mostrarMenuOpcionesOrdenamiento();
-    }
-
-    alert("Saliste de la subsección de ordenamiento.");
-}
-
-//Función que muestra el menu de ordenamiento
-function mostrarMenuOpcionesOrdenamiento(){
-    let mensaje = "**** MENÚ ORDEN ****\n";
-    mensaje = mensaje + "\n";
-    mensaje = mensaje + "1) Ordenar de menor a mayor precio\n";
-    mensaje = mensaje + "2) Ordenar de mayor a menor precio\n";
-    mensaje = mensaje + "3) Ordenar alfabéticamente por nombre de forma ascendente (A-Z)\n";
-    mensaje = mensaje + "4) Ordenar alfabéticamente por nombre de forma descendente (Z-A)\n";
-    mensaje = mensaje + "0) Volver al menú principal\n";
-    mensaje = mensaje + "\n";
-    mensaje = mensaje + "Ingrese una opción";
-
-    let opcion = parseInt(prompt(mensaje));
-
-    if(isNaN(opcion)){
-        opcion = -1;
-    }
-
-    return opcion;
-}
-
-//funcion que muestra el menu principal
-function mostrarMenu(){
-    let mensaje = "**** MENÚ ****\n";
-    mensaje = mensaje + "\n";
-    mensaje = mensaje + "1) Zapatilla Nine Mile ($ 2.500)\n";
-    mensaje = mensaje + "2) Zapatilla Nike ($ 3.500)\n";
-    mensaje = mensaje + "3) Zapatilla I-Run ($ 4.000)\n";
-    mensaje = mensaje + "4) Zapatilla All Crash ($ 2.250)\n";
-    mensaje = mensaje + "5) Buzo ($ 2.500)\n";
-    mensaje = mensaje + "6) Mostrar carrito actual\n";
-    mensaje = mensaje + "7) Vaciar carrito\n";
-    mensaje = mensaje + "8) Mostrar productos disponibles según orden\n";
-    mensaje = mensaje + "9) Comprar\n";
-    mensaje = mensaje + "0) Salir del programa\n";
-    mensaje = mensaje + "\n";
-    mensaje = mensaje + "Ingrese una opción";
-
-    let opcion = parseInt(prompt(mensaje));
-
-    if(isNaN(opcion)){
-        opcion = -1;
-    }
-
-    return opcion;
-}
+cargarAlLocalStorage(arrayProductos);
 
 //llamo a la funcion principal
-main();
+mostrarProductosDisponibles(arrayProductos);
+carritoActual.mostrarCarrito();
+carritoActual.mostrarTotal();
+
+var arrayBotonesCarrito = document.getElementsByClassName("card-add");
+console.log(arrayBotonesCarrito);
+
+for(let botonCarrito of arrayBotonesCarrito){
+    botonCarrito.addEventListener("click", agregarProductoAlCarrito);
+}
+
+var botonLimpiarCarrito = document.getElementById("buttonLimpiarCarrito");
+botonLimpiarCarrito.addEventListener("click", () => {
+    carritoActual.vaciarCarrito();
+
+    mostrarMensaje("Se vació el carrito!");
+    carritoActual.mostrarCarrito();
+    carritoActual.mostrarTotal();
+    carritoActual.mostrarCantidadArticulos();
+});
+
+var botonCerrarModal = document.getElementById("buttonCerrarModal");
+botonCerrarModal.addEventListener("click", cerrarModal);

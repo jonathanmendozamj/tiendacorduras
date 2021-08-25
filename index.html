@@ -53,8 +53,11 @@
 								<a class="nav-link" href="#">CONTACTO</a>
 							</li>
 						</ul>
-					</div>
 
+						<button type="button" class="btn btn-light">
+							Artículos <span id="spanCantidadArticulos" class="badge bg-danger"></span>
+						</button>
+					</div>
 				</div>
 			</nav>
 		</div>
@@ -89,6 +92,26 @@
 							<a data-categoryindex="all" href="#" class="category-link-all category-link list-group-item list-group-item-action active-category category-list-item-all">Todas</a>
 						</div>
 					</div>
+
+					<div class="card mt-3">
+						<div class="card-header">
+							Total
+						</div>
+						<div id="divTotal" class="card-body" >
+						</div>
+					</div>
+
+					<div id="divCardProductosCarrito" class="card mt-3">
+						<div class="card-header">
+							Productos en el carrito
+						</div>
+						<ul id="listaProductos" class="list-group list-group-flush">
+						</ul>
+					</div>
+
+					<div class="card mt-3">
+						<button class="btn btn-danger" id="buttonLimpiarCarrito">LIMPIAR CARRITO</button>
+					</div>
 				</div>
 				
 				<div class="col-lg-9 col-md-9 col-sm-8">
@@ -105,14 +128,6 @@
 							</section> 
 						</div>
 					-->
-
-						<div id="mensajeCarritoVacio" class="col-md-12">
-							<section class="card">
-								<div class="card-body">
-									<h5 class="card-title">CARRITO VACÍO</h5>
-								</div>
-							</section>
-						</div>
 					</div>
 				</div>
 		</div>
@@ -121,6 +136,24 @@
 		<div class="seccion-icono-flotante">
 			<a href="https://wa.me/5492254459171"><img class="seccion-icono-flotante__imagen" src="images/whatsapp.svg"
 					alt="Whatsapp"></a>
+		</div>
+
+		<!-- Modal para mostrar -->
+		<div id="divMensajeModal" class="modal" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Corduras - Carrito</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+					</div>
+					<div class="modal-body" >
+						<p id="parrafoMensajeModal"></p>
+					</div>
+					<div class="modal-footer">
+						<button id="buttonCerrarModal" type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+					</div>
+				</div>
+			</div>
 		</div>
 
 	</main>

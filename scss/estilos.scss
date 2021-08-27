@@ -33,6 +33,10 @@ h1, h2, h3, h4, h5, h6 {
     @include dimensiones($tamanioIcono, $tamanioIcono);
 }
 
+.col-md-4{
+    padding-bottom: calc(var(--bs-gutter-x));
+}
+
 /* INICIO MEDIA QUERIES */
 @media only screen and (max-width: 600px){
 

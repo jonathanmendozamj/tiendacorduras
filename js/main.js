@@ -22,7 +22,7 @@ class Producto{
                             <div class="card-body">
                                 <h5 class="card-title" style="text-align: left;"> ${ this.nombre }</h5>
                                 <p  class="card-text"> $ ${ this.precio }</p>
-                                <button class="btn btn-danger card-add" id="${ this.idProducto }">Agregar al carrito</button>
+                                <button class="btn btn-danger card-add" id="${ this.idProducto }"><i class="bi bi-cart-fill"></i> Agregar</button>
                             </div>`;
 
         return seccion;        
@@ -99,36 +99,62 @@ class Carrito{
         let spanCantidadArticulos = document.getElementById("spanCantidadArticulos");
 
         if(cantidadArticulos > 0){
-            spanCantidadArticulos.style.display = 'block';
+            spanCantidadArticulos.style.display = 'inline-block';
             spanCantidadArticulos.innerHTML = cantidadArticulos;
         }
         else{
             spanCantidadArticulos.style.display = 'none';
         }
     }
+
+    mostrarCambiosEnDOM(){
+        this.mostrarTotal();
+        this.mostrarCantidadArticulos();
+        this.mostrarCarrito();
+    }
     
 }
 /* FIN CLASES */
 
-function cargarAlLocalStorage(pArrayProductos){
-    const arrayProductosEnJSON = JSON.stringify(pArrayProductos);
+//Carga el array de prodcutos dependiendo si tiene 
+function cargarArrayProductos(){
+    let pArrayProductos = [];
 
-    let arrayGuardado = JSON.parse(localStorage.getItem("listaProductos"));
+    const arrayObtenidoDelStorage = JSON.parse(localStorage.getItem("listaProductos"));
 
-    if(!Array.isArray(arrayGuardado)){
+    if(!Array.isArray(arrayObtenidoDelStorage)){
         console.log("Se guarda array al LocalStorage");
+
+        //creo los productos
+        let prod1 = new Producto(1, "Zapatilla Nine Mile", 2500, "images/nine-mile.webp");
+        let prod2 = new Producto(2, "Zapatilla Nike", 3500, "images/nike.webp");
+        let prod3 = new Producto(3, "Zapatilla I-Run", 4000, "images/buss.webp");
+        let prod4 = new Producto(4, "Zapatilla All Crash", 2250, "images/all-crash.webp");
+        let prod5 = new Producto(5, "Buzo", 2500, "images/buzos.webp");
+
+        pArrayProductos = [prod1, prod2, prod3, prod4, prod5];
+
+        const arrayProductosEnJSON = JSON.stringify(pArrayProductos);
+
         localStorage.setItem("listaProductos", arrayProductosEnJSON);
     }
     else{
         console.log("Se levanta array del LocalStorage");
-        pArrayProductos = JSON.parse(localStorage.getItem("listaProductos"));
+
+        for(const item of arrayObtenidoDelStorage){
+            pArrayProductos.push(new Producto(item.idProducto, item.nombre, item.precio, item.foto));
+        }
     }
 
+    console.log(pArrayProductos);
+
+    return pArrayProductos;
 }
 
+//Muestra los prodcutos que tengo disponibles
 function mostrarProductosDisponibles(pArrayProductos){
     if(pArrayProductos.length > 0){
-        let contenedorPrincipal = document.getElementById("productsContainer");
+        let contenedorPrincipal = document.getElementById("contenedorProductos");
         console.log(contenedorPrincipal.innerHTML);
 
         for(let producto of pArrayProductos){
@@ -145,10 +171,11 @@ function mostrarProductosDisponibles(pArrayProductos){
         }
     }
     else{
-        mensajeMostrar = "Carrito vacío.";
+        console.log("Array de productos vacío");
     }
 }
 
+//Funcion que agrega los productos al carrito
 function agregarProductoAlCarrito(e){
     console.log(e.target);
 
@@ -160,11 +187,9 @@ function agregarProductoAlCarrito(e){
 
     if(productoEncontrado !== undefined){
         carritoActual.agregarProducto(productoEncontrado);
-        mensaje = "Se agregó " + productoEncontrado.nombre + " al carrito."
+        mensaje = "Se agregó " + productoEncontrado.nombre + " al carrito.";
 
-        carritoActual.mostrarTotal();
-        carritoActual.mostrarCantidadArticulos();
-        carritoActual.mostrarCarrito();
+        carritoActual.mostrarCambiosEnDOM();
     }
     else{
         mensaje = "Hubo un problema al agregar el producto al carrito.";
@@ -187,43 +212,34 @@ function cerrarModal(){
     modal.style.display = "none";
 }
 
+function inicializarEventos(){
+    arrayProductos = cargarArrayProductos();
 
-//creo los productos
-let prod1 = new Producto(1, "Zapatilla Nine Mile", 2500, "images/nine-mile.webp");
-let prod2 = new Producto(2, "Zapatilla Nike", 3500, "images/nike.webp");
-let prod3 = new Producto(3, "Zapatilla I-Run", 4000, "images/buss.webp");
-let prod4 = new Producto(4, "Zapatilla All Crash", 2250, "images/all-crash.webp");
-let prod5 = new Producto(5, "Buzo", 2500, "images/buzos.webp");
+    //llamo a la funcion principal
+    mostrarProductosDisponibles(arrayProductos);
+    carritoActual.mostrarCambiosEnDOM();
 
-//cargo el array de productos
-var arrayProductos = [prod1, prod2, prod3, prod4, prod5];
-console.log(arrayProductos);
+    var arrayBotonesCarrito = document.getElementsByClassName("card-add");
+    console.log(arrayBotonesCarrito);
 
-var carritoActual = new Carrito();
+    for(let botonCarrito of arrayBotonesCarrito){
+        botonCarrito.addEventListener("click", agregarProductoAlCarrito);
+    }
 
-cargarAlLocalStorage(arrayProductos);
+    var botonLimpiarCarrito = document.getElementById("buttonLimpiarCarrito");
+    botonLimpiarCarrito.addEventListener("click", () => {
+        carritoActual.vaciarCarrito();
 
-//llamo a la funcion principal
-mostrarProductosDisponibles(arrayProductos);
-carritoActual.mostrarCarrito();
-carritoActual.mostrarTotal();
+        mostrarMensaje("Se vació el carrito!");
+        carritoActual.mostrarCambiosEnDOM();
+    });
 
-var arrayBotonesCarrito = document.getElementsByClassName("card-add");
-console.log(arrayBotonesCarrito);
-
-for(let botonCarrito of arrayBotonesCarrito){
-    botonCarrito.addEventListener("click", agregarProductoAlCarrito);
+    var botonCerrarModal = document.getElementById("buttonCerrarModal");
+    botonCerrarModal.addEventListener("click", cerrarModal);
 }
 
-var botonLimpiarCarrito = document.getElementById("buttonLimpiarCarrito");
-botonLimpiarCarrito.addEventListener("click", () => {
-    carritoActual.vaciarCarrito();
+//Variables globales que utilizo
+var arrayProductos = [];
+var carritoActual = new Carrito();
 
-    mostrarMensaje("Se vació el carrito!");
-    carritoActual.mostrarCarrito();
-    carritoActual.mostrarTotal();
-    carritoActual.mostrarCantidadArticulos();
-});
-
-var botonCerrarModal = document.getElementById("buttonCerrarModal");
-botonCerrarModal.addEventListener("click", cerrarModal);
+addEventListener('DOMContentLoaded', inicializarEventos);

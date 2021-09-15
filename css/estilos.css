@@ -60,7 +60,7 @@ header {
   top: 0;
   background-color: black;
   padding: 0.5rem;
-  z-index: 2; }
+  z-index: 4; }
 
 /* NAV, LISTA E ITEMS */
 .navegador {
@@ -233,6 +233,15 @@ footer {
   grid-area: articulo2; }
 
 /* FIN DEFINICIÓN GRILLAS */
+.card-add {
+  width: 100%; }
+
+#divMensajeConfirmar {
+  z-index: 5; }
+
+#divMensajeModal {
+  z-index: 10; }
+
 /* CSS Reset */
 * {
   margin: 0;

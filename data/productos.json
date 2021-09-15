@@ -1,0 +1,51 @@
+[
+   {
+      "idProducto":1,
+      "nombre":"Zapatilla Nine Mile",
+      "precio":2500,
+      "categoria": "calzado",
+      "foto":"images/nine-mile.webp"
+   },
+   {
+      "idProducto":2,
+      "nombre":"Zapatilla Nike",
+      "precio":3500,
+      "categoria": "calzado",
+      "foto":"images/nike.webp"
+   },
+   {
+      "idProducto":3,
+      "nombre":"Zapatilla I-Run",
+      "precio":4000,
+      "categoria": "calzado",
+      "foto":"images/buss.webp"
+   },
+   {
+      "idProducto":4,
+      "nombre":"Zapatilla All Crash",
+      "precio":2250,
+      "categoria": "calzado",
+      "foto":"images/all-crash.webp"
+   },
+   {
+      "idProducto":5,
+      "nombre":"Buzo",
+      "precio":2500,
+      "categoria": "indumentaria",
+      "foto":"images/buzos.webp"
+   },
+   {
+      "idProducto":6,
+      "nombre":"Remera Corduras",
+      "precio":1100,
+      "categoria": "indumentaria",
+      "foto":"images/remeras.webp"
+   },
+   {
+      "idProducto":7,
+      "nombre":"Gorra Corduras",
+      "precio":700,
+      "categoria": "accesorios",
+      "foto":"images/gorras.webp"
+   }
+]

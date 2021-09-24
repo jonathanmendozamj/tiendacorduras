@@ -76,7 +76,7 @@
 							<div class="input-group">
 								<input type="search" class="search-product form-control" id="inputBuscarProducto">
 								<div class="input-group-append">
-									<button disabled="disabled" class="btn btn-outline-secondary clear-search-result-btn"
+									<button class="btn btn-outline-secondary clear-search-result-btn" id="buttonLimpiarBusqueda"
 										type="button"><strong>×</strong></button>
 								</div>
 							</div>
@@ -96,6 +96,14 @@
 						</div>
 					</div>
 
+					<div class="card mt-3" id="divCardProductosCarrito">
+						<div class="card-header">
+							Productos en el carrito
+						</div>
+						<ul class="list-group list-group-flush" id="listaProductos">
+						</ul>
+					</div>
+
 					<div class="card mt-3">
 						<div class="card-header">
 							Total
@@ -107,14 +115,6 @@
 							<i class="bi bi-cart-check"></i>
 							REALIZAR COMPRA
 						</button>
-					</div>
-
-					<div class="card mt-3" id="divCardProductosCarrito">
-						<div class="card-header">
-							Productos en el carrito
-						</div>
-						<ul class="list-group list-group-flush" id="listaProductos">
-						</ul>
 					</div>
 
 					<div class="card mt-3">

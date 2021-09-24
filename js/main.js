@@ -8,11 +8,11 @@ class Producto{
         this.categoria = pCategoria;
     }
 
-    mostrarDetalle = function() { 
+    mostrarDetalle() { 
         return this.nombre + " ($ " + this.precio + ")";
     }
 
-    armarCard = function() {
+    armarCard() {
         return `<section class="card">
                     <img src="${ this.foto }" class="card-img-top img-fluid" alt="${ this.nombre }">
                     <div class="card-body">
@@ -129,8 +129,24 @@ class Carrito{
 }
 /* FIN CLASES */
 
-//Muestra los productos que tengo disponibles
 function mostrarProductosDisponibles(pArrayProductos){
+
+    $("#contenedorProductos").empty();
+
+    if(Array.isArray(pArrayProductos) && pArrayProductos.length > 0){
+        for(let producto of pArrayProductos){
+            $("#contenedorProductos").append(`<div class="col-md-4">
+                                                    ${ producto.armarCard() }
+                                                </div>`);
+        }
+    }
+    else{
+        console.log("Array de productos vacío o array inválido");
+    }
+}
+
+//Muestra los productos que tengo disponibles
+function obtenerProductosDisponibles(pArrayProductos){
 
     const URLLOCAL = 'data/productos.json';
 
@@ -149,7 +165,7 @@ function mostrarProductosDisponibles(pArrayProductos){
             }
         }
         else{
-            console.log("Array de productos vacío");
+            console.log("Array de productos vacío o array inválido");
         }
 
         console.log(pArrayProductos);
@@ -296,7 +312,7 @@ function cargarCarrito(){
 
 function inicializarEventos(){
     //llamo a la funcion principal
-    mostrarProductosDisponibles(arrayProductos);
+    obtenerProductosDisponibles(arrayProductos);
     carritoActual.mostrarCambiosEnDOM();
 
     $(document).on("click", ".card-add", function(e){
@@ -327,14 +343,24 @@ function inicializarEventos(){
         enviarFormulario(e);
     });
 
+    $('#buttonLimpiarBusqueda').click(function(){
+        console.log("Entro al evento click de buttonLimpiarBusqueda");
+
+        $('#inputBuscarProducto').val('');
+
+        mostrarProductosDisponibles(arrayProductos);
+    });
+
     $('.categoria-productos').click(function(e){
         console.log(e.target.id);
 
-        let arrayFiltrado = arrayProductos.filter(function(producto){
+        let arrayProductosFiltrado = arrayProductos.filter(function(producto){
             return (producto.categoria === e.target.id) || (e.target.id === 'todas');
         });
 
-        console.log(arrayFiltrado);
+        console.log(arrayProductosFiltrado);
+
+        mostrarProductosDisponibles(arrayProductosFiltrado);
     });
 
     //Filtra por palabra
@@ -349,6 +375,8 @@ function inicializarEventos(){
         });
 
         console.log(arrayProductosFiltrado);
+
+        mostrarProductosDisponibles(arrayProductosFiltrado);
     });
 }
 

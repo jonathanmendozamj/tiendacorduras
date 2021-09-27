@@ -50,7 +50,7 @@ class Carrito{
     }
 
     guardarProductos(pArrayProductos) {
-        if(Array.isArray(arrayProductos)){
+        if(Array.isArray(pArrayProductos)){
             for(let producto of pArrayProductos){
                 this.arrayProductos.push(producto);
             }
@@ -75,8 +75,14 @@ class Carrito{
         if(this.arrayProductos.length > 0){
             display = 'block';
 
-            for(const producto of this.arrayProductos){
-                $("#listaProductos").append(`<li class="list-group-item">${ producto.mostrarDetalle() }</li>`);
+            for(const [index, producto] of this.arrayProductos.entries()){
+                $("#listaProductos").append(`<li class="list-group-item small"><a class="navbar-cart-product-close" href="#" id="itemCarrito${ index }"><i class="bi bi-x"></i></a> ${ producto.mostrarDetalle() }</li>`);
+            
+                $(`#itemCarrito${ index }`).click(function(){
+                    console.log("Entro al click de " + index);
+
+                    eliminarProducto(index);
+                });
             }
 
         }
@@ -103,7 +109,7 @@ class Carrito{
     mostrarCantidadArticulos(){
         let cantidadArticulos = this.obtenerCantidadArticulos();
         let spanCantidadArticulos = $("#spanCantidadArticulos");
-        let buttonRealizarCompra = $("#buttonRealizarCompra");
+        let buttonConfirmarPedido = $("#buttonConfirmarPedido");
 
         let display = '';
 
@@ -116,7 +122,7 @@ class Carrito{
         }
 
         spanCantidadArticulos.css('display', display);
-        buttonRealizarCompra.css('display', display);
+        buttonConfirmarPedido.css('display', display);
 
     }
 
@@ -129,6 +135,7 @@ class Carrito{
 }
 /* FIN CLASES */
 
+//Muestro los productos disponibles
 function mostrarProductosDisponibles(pArrayProductos){
 
     $("#contenedorProductos").empty();
@@ -145,7 +152,7 @@ function mostrarProductosDisponibles(pArrayProductos){
     }
 }
 
-//Muestra los productos que tengo disponibles
+//Obtengo los productos que tengo disponibles desde el archivo de texto JSON
 function obtenerProductosDisponibles(pArrayProductos){
 
     const URLLOCAL = 'data/productos.json';
@@ -158,11 +165,9 @@ function obtenerProductosDisponibles(pArrayProductos){
                 let nuevoProducto = new Producto(item.idProducto, item.nombre, item.precio, item.categoria, item.foto);
 
                 pArrayProductos.push(nuevoProducto);
-
-                $("#contenedorProductos").append(`<div class="col-md-4">
-                                                ${ nuevoProducto.armarCard() }
-                                            </div>`);
             }
+
+            mostrarProductosDisponibles(pArrayProductos);
         }
         else{
             console.log("Array de productos vacío o array inválido");
@@ -172,11 +177,22 @@ function obtenerProductosDisponibles(pArrayProductos){
     });
 }
 
+//Función que elimina un producto del carrito
+function eliminarProducto(indiceProducto){
+    console.log("El indice pasado es " + indiceProducto);
+
+    var productoEliminado = carritoActual.arrayProductos.splice(indiceProducto, 1);
+    console.log(productoEliminado);
+
+    carritoActual.mostrarCambiosEnDOM();
+    guardarCarritoLocalStorage();
+}
+
 //Funcion que agrega los productos al carrito
 function agregarProductoAlCarrito(e){
     console.log(e.target);
 
-    const productoEncontrado = arrayProductos.find(producto => {
+    const productoEncontrado = arrayProductosDisponibles.find(producto => {
         return producto.idProducto == e.target.id;
     });
 
@@ -231,7 +247,7 @@ function mostrarProvincias(){
 function mostrarMensaje(mensaje){
     //Agregada transicion para aparecer
     $("#divMensajeModal").fadeIn(function(){
-        $("#divMensajeModal").fadeOut(1500);
+        $("#divMensajeModal").fadeOut(2000);
     });
 
     //Muestro mensaje pasado por parámetro
@@ -259,15 +275,25 @@ function enviarFormulario(e){
     let nombre = $('#inputNombre').val();
     let apellido = $('#inputApellido').val();
     let dni = $('#inputDNI').val();
-    let provincia = $('#selectProvincia').val();
+    let provincia = $('#selectProvincias').val();
+    let domicilio = $('#inputDomicilio').val();
     let telefono = $('#inputTelefono').val();
     let mail = $('#inputMail').val();
 
     let mensaje = '';
 
+    console.log(nombre, apellido, dni, provincia, domicilio, telefono, mail);
+
     if(nombre != '' && apellido != ''
-        && dni != '' && provincia != ''
+        && dni != '' && domicilio != ''
+        && provincia != ''
         && telefono != '' && mail != ''){
+
+        if(isNaN(dni)){
+            mostrarMensaje("Ingrese un DNI numérico.");
+
+            return;
+        }
 
         let nuevoCliente = new Cliente(nombre, apellido, dni, provincia, telefono, mail);
         nuevoCliente.agregarCarrito(carritoActual.arrayProductos);
@@ -278,7 +304,7 @@ function enviarFormulario(e){
         formulario.reset();
         $('.cerrarModal').trigger('click');
 
-        mensaje = "Envío cargado de forma correcta.";
+        mensaje = "Pedido cargado de forma correcta. Se pondrán en contacto para coordinar entrega.";
     }
     else{
         mensaje = "Por favor, complete campos faltantes.";
@@ -288,11 +314,8 @@ function enviarFormulario(e){
 }
 
 function guardarCarritoLocalStorage(){
-    if(carritoActual.arrayProductos.length > 0){
-        const carritoEnJSON = JSON.stringify(carritoActual.arrayProductos);
-
-        localStorage.setItem("carrito", carritoEnJSON);
-    }
+    const carritoEnJSON = JSON.stringify(carritoActual.arrayProductos);
+    localStorage.setItem("carrito", carritoEnJSON);
 }
 
 function cargarCarrito(){
@@ -312,7 +335,7 @@ function cargarCarrito(){
 
 function inicializarEventos(){
     //llamo a la funcion principal
-    obtenerProductosDisponibles(arrayProductos);
+    obtenerProductosDisponibles(arrayProductosDisponibles);
     carritoActual.mostrarCambiosEnDOM();
 
     $(document).on("click", ".card-add", function(e){
@@ -331,7 +354,7 @@ function inicializarEventos(){
         cerrarModal($(this).parent().parent().parent().parent());
     });
 
-    $("#buttonRealizarCompra").click(function(){
+    $("#buttonConfirmarPedido").click(function(){
         mostrarMensajeConfirmacion();
     });
 
@@ -348,13 +371,13 @@ function inicializarEventos(){
 
         $('#inputBuscarProducto').val('');
 
-        mostrarProductosDisponibles(arrayProductos);
+        mostrarProductosDisponibles(arrayProductosDisponibles);
     });
 
     $('.categoria-productos').click(function(e){
         console.log(e.target.id);
 
-        let arrayProductosFiltrado = arrayProductos.filter(function(producto){
+        let arrayProductosFiltrado = arrayProductosDisponibles.filter(function(producto){
             return (producto.categoria === e.target.id) || (e.target.id === 'todas');
         });
 
@@ -370,7 +393,7 @@ function inicializarEventos(){
 
         let palabraBuscada = e.target.value;
 
-        let arrayProductosFiltrado = arrayProductos.filter(function(producto) {
+        let arrayProductosFiltrado = arrayProductosDisponibles.filter(function(producto) {
             return producto.nombre.toLowerCase().indexOf(palabraBuscada.toLowerCase()) > -1;
         });
 
@@ -381,7 +404,7 @@ function inicializarEventos(){
 }
 
 //Variables globales que utilizo
-var arrayProductos = [];
+var arrayProductosDisponibles = [];
 var carritoActual = new Carrito();
 
 $(document).ready(function(){

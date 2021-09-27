@@ -64,7 +64,7 @@
 	</header>
 
 	<main>
-
+		
 		<div class="container contenedor-principal">
 			<div class="row">
 				<div class="col-lg-3 col-md-3 col-sm-4">
@@ -111,9 +111,9 @@
 						<div  class="card-body" id="divTotal">
 						</div>
 
-						<button class="btn btn-success" id="buttonRealizarCompra">
+						<button class="btn btn-success" id="buttonConfirmarPedido">
 							<i class="bi bi-cart-check"></i>
-							REALIZAR COMPRA
+							CONFIRMAR PEDIDO
 						</button>
 					</div>
 
@@ -160,7 +160,7 @@
 						<p id="parrafoMensajeModal"></p>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-danger cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+						<button type="button" class="btn btn-danger cerrarModal" data-bs-dismiss="modal"><i class="bi bi-x-square-fill"></i> Cerrar</button>
 					</div>
 				</div>
 			</div>
@@ -200,13 +200,21 @@
 									<input type="number" class="form-control" id="inputDNI" name="dni" placeholder="11111111" required>
 								</div>
 							</div>
+							
+							<!-- Domicilio -->
+							<div class="mb-3 row">
+								<label for="inputDomicilio" class="col-sm-4 col-form-label">Domicilio</label>
+								<div class="col-sm-8">
+									<input type="text" class="form-control" id="inputDomicilio" name="domcilio" placeholder="Falsa 123" required>
+								</div>
+							</div>
 
 							<!-- Provincia -->
 							<div class="mb-3 row">
 								<label for="selectProvincias" class="col-sm-4 col-form-label">Provincia</label>
 								<div class="col-sm-8">
 									<select class="form-select" id="selectProvincias" aria-label="Provincia" name="provincia" required>
-										<option selected>Seleccione una provincia</option>
+										<option selected value="">Seleccione una provincia</option>
 									</select>
 								</div>
 							</div>
@@ -223,15 +231,15 @@
 							<div class="mb-3 row">
 								<label for="inputMail" class="col-sm-4 col-form-label">Mail</label>
 								<div class="col-sm-8">
-									<input type="email" class="form-control" id="inputMail" name="mail" placeholder="nombre@ejemplo.com" required>
+									<input type="email" class="form-control" id="inputMail" name="mail" size="30" placeholder="nombre@ejemplo.com" required>
 								</div>
 							</div>
 						</form>
 					</div>
 
 					<div class="modal-footer">
-						<button type="button" id="buttonEnviarFormulario" class="btn btn-success" data-bs-dismiss="modal">Enviar</button>
-						<button type="button" class="btn btn-danger cerrarModal" data-bs-dismiss="modal">Cerrar</button>
+						<button type="button" id="buttonEnviarFormulario" class="btn btn-success" data-bs-dismiss="modal"><i class="bi bi-check-square-fill"></i> Enviar</button>
+						<button type="button" class="btn btn-danger cerrarModal" data-bs-dismiss="modal"><i class="bi bi-x-square-fill"></i> Cerrar</button>
 					</div>
 				</div>
 			</div>
